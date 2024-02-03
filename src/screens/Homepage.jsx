@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 function HomePage({accessToken, setAccessToken}) {
     const CLIENT_ID = "8713f90fe70340269c1fcde141231939";
@@ -38,7 +38,6 @@ function HomePage({accessToken, setAccessToken}) {
             console.log(response.access_token)
         }
     }
-
 
     return (
         <div className="homepage-container">

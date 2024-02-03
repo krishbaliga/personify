@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import HomePage from './Homepage';
+import HomePage from './screens/Homepage';
 import './App.css';
+import './static/css/home.css'
 
 function App() {
   const [accessToken, setAccessToken] = useState("");
