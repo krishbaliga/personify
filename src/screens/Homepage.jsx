@@ -1,6 +1,8 @@
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function HomePage({accessToken, setAccessToken}) {
+    const navigate = useNavigate();
     const CLIENT_ID = "8713f90fe70340269c1fcde141231939";
     const CLIENT_SECRET = "143a8da446d04560b5cb2257f9be89e7";
     const REDIRECT_URI = "http://localhost:3000/";
@@ -35,12 +37,12 @@ function HomePage({accessToken, setAccessToken}) {
         const response = await body.json();
         if (response.access_token != null) {
             setAccessToken(response.access_token)
-            console.log(response.access_token)
+            navigate('/mbti')
         }
     }
 
     return (
-        <div className="homepage-container">
+        <div className="page-container">
             <a onClick href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`}>
                 <button className='large-btn'>Login</button>
             </a>
