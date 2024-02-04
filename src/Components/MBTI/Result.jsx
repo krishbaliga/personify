@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import logo from '../../assets/logo.png';
 
 function Result({ isLoading, mbti, topGenres, songsToDisplay, setIsLoading, accessToken }) {
@@ -23,6 +23,7 @@ function Result({ isLoading, mbti, topGenres, songsToDisplay, setIsLoading, acce
     ];
     const personality = descriptions.find(description => description.name === mbti.current);
     const stringArray = mbti.current.split('');
+    const [playlistID, setPlaylistID] = useState("");
 
     useEffect(() => {
         getArtistsToDisplay();
@@ -36,7 +37,7 @@ function Result({ isLoading, mbti, topGenres, songsToDisplay, setIsLoading, acce
         const userDataResponse = await userData.json();
         const userID = userDataResponse.id;
         const createPlaylist = await fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, {
-            method: "POST", headers: {Authorization: `Bearer ${accessToken}`},
+            method: "POST", headers: { Authorization: `Bearer ${accessToken}` },
             body: JSON.stringify({
                 name: "Personify Playlist",
                 description: `curated playlist for your personality type: ${mbti.current}`,
@@ -97,7 +98,6 @@ function Result({ isLoading, mbti, topGenres, songsToDisplay, setIsLoading, acce
             method: "GET", headers: { Authorization: `Bearer ${accessToken}` }
         })
         const songListJSON = await getSongs.json();
-        console.log(songListJSON)
         const songList = []
         for (let i = 0; i < songListJSON.tracks.length; i++) {
             songList.push(songListJSON.tracks[i].uri);
@@ -105,11 +105,12 @@ function Result({ isLoading, mbti, topGenres, songsToDisplay, setIsLoading, acce
         let songString = songList.join(',')
         songString = songString.replaceAll(":", "%3A");
         songString = songString.replaceAll(",", "%2C");
-        const playlistID = await createPlaylist();
-        console.log(songString)
-        const addSongs = await fetch(`https://api.spotify.com/v1/playlists/${playlistID}/tracks?uris=${songString}`, {
-            method: "POST", headers: { Authorization: `Bearer ${accessToken}`}
+        const id = await createPlaylist();
+        setPlaylistID(id);
+        const addSongs = await fetch(`https://api.spotify.com/v1/playlists/${id}/tracks?uris=${songString}`, {
+            method: "POST", headers: { Authorization: `Bearer ${accessToken}` }
         });
+
     }
 
     const getArtistsToDisplay = async () => {
@@ -126,12 +127,14 @@ function Result({ isLoading, mbti, topGenres, songsToDisplay, setIsLoading, acce
                 })
             }
         }
-        setIsLoading(false);
+        setTimeout(() => {
+            setIsLoading(false);
+        },1500)
     }
 
     return (
         <>
-            {!isLoading ?
+            {!isLoading && playlistID ?
                 <div className="mbti-container" id="results-container" style={{ backgroundColor: "#EF9595" }}>
                     <i className="header">your mbti type is {mbti.current}</i>
                     <p className="sub-text">{personality.description}</p>
@@ -182,6 +185,7 @@ function Result({ isLoading, mbti, topGenres, songsToDisplay, setIsLoading, acce
                             </div>
                         </div>
                     </div>
+                    <iframe src={`https://open.spotify.com/embed/playlist/${playlistID}?theme=black`} style={{marginTop: "50px",backgroundClip: "black"}} width="500px" height="152" theme="0" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
                     <div className="credits-container">
                         <i style={{ fontFamily: "Inter", fontSize: "2rem", color: "white", fontWeight: 700 }} className="sub-text">personify</i>
                     </div>

@@ -1,17 +1,15 @@
 .mbti-container {
     margin-top: -46.8px;
+    padding-top: 46.8px;
     display: flex;
     flex-direction: column;
     width: 100%;
     align-items: center;
     justify-content: center;
-    min-height: 100%;
+    height: calc(100% - 47px);
+    
     background-image: url(../assets/homepage.jpg);
     background-size: cover;
-}
-
-#extra-intro-container {
-    height: calc(100%);
 }
 
 .header {
