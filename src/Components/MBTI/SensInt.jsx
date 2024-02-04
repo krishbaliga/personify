@@ -132,6 +132,7 @@ function SensInt({songs, accessToken, setSensIntFinished, isLoading, mbti, topGe
 
     console.log("Sensing Level: " + sensingLevel.current);
     topGenres.current = genres.slice(0, 3);
+    console.log(topGenres.current)
     setSensIntFinished(true);
     }
     

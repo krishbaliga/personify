@@ -1,17 +1,39 @@
 .loading-screen-container {
-    height: calc(100% - 64px);
+    margin-top: -46.8px;
+    height: calc(100%);
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     gap: 32px;
+    background-image: url(/src/assets/loadingpage.jpg);
+    background-size: cover;
+}
+
+.loading-gif {
+    width: 700px;
+    border-radius: 32px;
 }
 
 .loading-sub-text {
     font-size: 1.5rem;
-    font-weight: 600;
+    font-weight: 700;
     text-align: center;
+    font-family: Inter;
+}
+
+.cloud {
+    height: 100px;
+    position: absolute;
+}
+
+#cloud1 {
+    transform: translate(-350px, -200px); 
+}
+
+#cloud2 {
+    transform: translate(350px, 150px); 
 }
 
 @media only screen and (max-device-width: 700px){

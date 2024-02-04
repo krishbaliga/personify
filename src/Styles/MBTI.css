@@ -1,19 +1,23 @@
 .mbti-container {
+    margin-top: -46.8px;
     display: flex;
     flex-direction: column;
     width: 100%;
     align-items: center;
     justify-content: center;
     min-height: 100%;
+    background-image: url(../assets/homepage.jpg);
+    background-size: cover;
 }
 
 #extra-intro-container {
-    height: calc(100% - 64px);
+    height: calc(100%);
 }
 
 .header {
-    font-size: 4rem;
+    font-size: 2rem;
     text-align: center;
+    font-weight: 700;
 }
 
 .bar {
@@ -37,9 +41,10 @@
 .sub-text {
     text-align: center;
     color: black;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: 500;
     width: 70%;
+    font-size: Inter;
 }
 
 .top-items {
